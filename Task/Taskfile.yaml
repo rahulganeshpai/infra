@@ -1,0 +1,18 @@
+version: "3"
+tasks:
+  build:
+    deps:
+      - task: remove-image
+        vars: 
+          IMAGE: helloworld
+          VERSION: 0.0.1
+    dir: ./test
+    cmds:
+      - |
+        docker build -t helloworld:0.0.1 . --compress
+    silent: true
+  remove-image:
+    internal: true
+    cmds: 
+      - | 
+        docker rmi {{.IMAGE}}:{{.VERSION}}
